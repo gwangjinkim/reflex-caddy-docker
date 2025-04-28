@@ -8,15 +8,16 @@ It handles SSL certificates via Let’s Encrypt out of the box and is ready for 
 ⸻
 
 # What’s Inside
-	•	Reflex (Python Web Framework): Your app backend + React frontend generator.
-	•	Bun (Secretly Required): Manages the JavaScript bits for the frontend. Installed automatically.
-	•	Caddy Server: Handles HTTPS, reverse proxying, and automatic certificates like a pro.
-	•	Docker Compose: One command to rule them all.
+- Reflex (Python Web Framework): Your app backend + React frontend generator.
+- Bun (Secretly Required): Manages the JavaScript bits for the frontend. Installed automatically.
+- Caddy Server: Handles HTTPS, reverse proxying, and automatic certificates like a pro.
+- Docker Compose: One command to rule them all.
 
 ⸻
 
 # Project Structure
 
+```
 .
 ├── Caddyfile             # Caddy server configuration
 ├── docker-compose.yml    # All services defined here
@@ -28,61 +29,60 @@ It handles SSL certificates via Let’s Encrypt out of the box and is ready for 
     │   └── my_reflex_app.py
     ├── requirements.txt  # Python dependencies (just 'reflex' for now)
     └── rxconfig.py       # Reflex config (app name, frontend URL, etc.)
-
+```
 
 
 ⸻
 
 # Quick Start
-	1.	Clone the Repository:
-
+1. Clone the Repository:
+```
 git clone https://github.com/yourusername/reflex-caddy-docker.git
 cd reflex-caddy-docker
-
-	2.	Edit your Caddyfile and rxconfig.py:
+```
+2. Edit your `Caddyfile` and `rxconfig.py`:
 Make sure the domain and app names match your real deployment.
-	3.	Build and Run:
-
+3. Build and Run:
+```
 docker compose build --no-cache
 docker compose up
-
-	4.	Enjoy:
-Open https://yourdomain.com and behold your creation.
+```
+4. Enjoy: Open `https://yourdomain.com and behold your creation.
 
 ⸻
 
 # Common Pitfalls
-	•	Missing reflex command?
+- Missing reflex command?
 You must use uv with the --system flag inside the container. Otherwise, your Reflex install might vanish into a ghost .venv during image building.
-	•	Why is Caddy complaining?
+- Why is Caddy complaining?
 Make sure your DNS A-record points to your server IP before Caddy tries to pull certificates.
-	•	Frontend not building?
+- Frontend not building?
 Bun must be installed inside the container — Reflex will handle this automatically if you have curl and unzip.
 
 ⸻
 
 # Tech Notes
-	•	uv: Ultra-fast Python package manager. Installed globally inside the container.
-	•	Bun: Used by Reflex under the hood for frontend building.
-	•	No Virtualenvs: Thanks to uv --system, packages are installed into the main Python environment inside the container.
-	•	Live SSL: Thanks to Caddy auto-renewing and issuing Let’s Encrypt certificates.
+- uv: Ultra-fast Python package manager. Installed globally inside the container.
+- Bun: Used by Reflex under the hood for frontend building.
+- No Virtualenvs: Thanks to uv --system, packages are installed into the main Python environment inside the container.
+- Live SSL: Thanks to Caddy auto-renewing and issuing Let’s Encrypt certificates.
 
 ⸻
 
 # Why This Setup?
-	•	Minimal moving parts.
-	•	Fully automatic HTTPS.
-	•	Extremely fast deployments.
-	•	No manual SSL certificate setups.
-	•	Good enough for quick MVPs or real production with small tweaks.
+- Minimal moving parts.
+- Fully automatic HTTPS.
+- Extremely fast deployments.
+- No manual SSL certificate setups.
+- Good enough for quick MVPs or real production with small tweaks.
 
 ⸻
 
 # Related Links
-	•	Reflex Documentation
-	•	Caddy Documentation
-	•	uv Package Manager
-	•	Bun JavaScript Runtime
+- Reflex Documentation
+- Caddy Documentation
+- uv Package Manager
+- Bun JavaScript Runtime
 
 ⸻
 
