@@ -47,25 +47,25 @@ Make sure the domain and app names match your real deployment.
 docker compose build --no-cache
 docker compose up
 ```
-4. Enjoy: Open `https://yourdomain.com and behold your creation.
+4. Enjoy: Open `https://yourdomain.com` and behold your creation.
 
 ⸻
 
 # Common Pitfalls
 - Missing reflex command?
-You must use uv with the --system flag inside the container. Otherwise, your Reflex install might vanish into a ghost .venv during image building.
-- Why is Caddy complaining?
-Make sure your DNS A-record points to your server IP before Caddy tries to pull certificates.
+You must use uv with the `--system` flag inside the container. Otherwise, your Reflex install might vanish into a ghost `.venv` during image building.
+- Why is `Caddy` complaining?
+Make sure your DNS A-record points to your server IP before `Caddy` tries to pull certificates.
 - Frontend not building?
-Bun must be installed inside the container — Reflex will handle this automatically if you have curl and unzip.
+Bun must be installed inside the container — `Reflex` will handle this automatically if you have `curl` and `unzip`.
 
 ⸻
 
 # Tech Notes
-- uv: Ultra-fast Python package manager. Installed globally inside the container.
-- Bun: Used by Reflex under the hood for frontend building.
-- No Virtualenvs: Thanks to uv --system, packages are installed into the main Python environment inside the container.
-- Live SSL: Thanks to Caddy auto-renewing and issuing Let’s Encrypt certificates.
+- `uv`: Ultra-fast Python package manager. Installed globally inside the container.
+- `Bun`: Used by Reflex under the hood for frontend building.
+- No Virtualenvs: Thanks to `uv --system`, packages are installed into the main Python environment inside the container.
+- Live SSL: Thanks to `Caddy` auto-renewing and issuing Let’s Encrypt certificates.
 
 ⸻
 
@@ -95,13 +95,3 @@ MIT — go build cool stuff.
 # Small note
 
 If you find this useful (or you learned what happens when Reflex doesn’t find Bun…), a ⭐️ on GitHub would be awesome!
-
-⸻
-
-Would you also like me to give you a perfect short GitHub project description (the tagline below the repo name)?
-Example:
-
-“Containerized Reflex web apps with Caddy-powered HTTPS. Fast, clean, production-ready.”
-
-I can suggest a few more if you want!
-Want them?
