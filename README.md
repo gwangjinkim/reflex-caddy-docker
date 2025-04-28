@@ -95,3 +95,10 @@ MIT — go build cool stuff.
 # Small note
 
 If you find this useful (or you learned what happens when Reflex doesn’t find Bun…), a ⭐️ on GitHub would be awesome!
+
+---
+
+# Medium Article
+
+In this medium article, I explain the setup step by step:
+https://gwangjinkim.medium.com/python-web-app-deployment-without-losing-your-will-to-live-reflex-docker-caddy-7fec53ec6996?sk=161a4021c4a2609a50b9f018cc5f1372
