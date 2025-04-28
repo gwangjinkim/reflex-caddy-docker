@@ -1,0 +1,54 @@
+# docker-compose.yml
+# No version needed at the top anymore, Compose V2 assumes latest.
+
+services:
+  # The Reflex App Service - codename 'app'
+  app:
+    build:
+      context: ./app # Build using the Dockerfile in ./app
+      dockerfile: Dockerfile
+    container_name: reflex_app_container # So you can find it later
+    volumes:
+      # Link local ./app folder to /app inside container.
+      # Change code locally -> changes appear in container (for dev mode). Magic? No, just mounts.
+      - ./app:/app
+    environment:
+      PYTHONUNBUFFERED: 1 # For logs
+      # *** THE IMPORTANT BIT ***
+      # Set this to how people access your site.
+      # For local testing: "http://localhost"
+      # For real site: "https://yourdomain.com"
+      DEPLOY_URL: "https://gwangjinkim.ovh"
+    networks:
+      - reflex_network # Connect to our private network
+
+  # The Caddy Service - codename 'caddy'
+  caddy:
+    image: caddy:latest # Use the official Caddy image
+    container_name: caddy_proxy_container
+    restart: unless-stopped # Keep it running, maybe it's useful
+    ports:
+      # Connect HOST ports to CONTAINER ports. This is how the outside world talks to Caddy.
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+      - "443:443/udp" # HTTP/3 (because we're fancy?)
+    volumes:
+      # Give Caddy our config file.
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      # Let Caddy save its homework (certs, state) persistently.
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - reflex_network # Also on the private network
+    depends_on:
+      - app # Don't start Caddy until 'app' is at least trying to start.
+
+# Define the private network for containers to chat.
+networks:
+  reflex_network:
+    driver: bridge # Standard virtual network
+
+# Define the persistent storage spots.
+volumes:
+  caddy_data:
+  caddy_config:

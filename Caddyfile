@@ -1,0 +1,33 @@
+# Caddyfile
+
+{
+    # IMPORTANT: If using a real domain, uncomment this and put your email.
+    # Let's Encrypt (who gives the free HTTPS certs) needs it.
+    email gwang.jin.kim.phd@gmail.com
+}
+
+# The address Caddy listens on. Change 'localhost' to your real domain(s).
+# You can list multiple domains separated by spaces.
+# change localhost to `yourdomain.com www.yourdomain.com`
+gwangjinkim.ovh www.gwangjinkim.ovh { 
+
+    # Optional: Make responses smaller. Saves maybe 0.01 cents.
+    encode zstd gzip
+
+    # Identify requests that need to go to the Python backend (port 8000).
+    @backend_routes path /_event/* /ping /_upload /_upload/*
+
+    # Handle those backend requests.
+    handle @backend_routes {
+        # 'app' is the name of our Reflex service in docker-compose.yml
+        reverse_proxy app:8000
+        # header_up X-Forwarded-Proto {scheme} # Caddy usually does this implicitly now
+    }
+
+    # Handle everything else (the frontend UI).
+    handle {
+        # Send these to the frontend server (port 3000 in the app container).
+        reverse_proxy app:3000
+        # header_up X-Forwarded-Proto {scheme} # Caddy usually does this implicitly now
+    }
+}
