@@ -37,7 +37,7 @@ It handles SSL certificates via Let’s Encrypt out of the box and is ready for 
 # Quick Start
 1. Clone the Repository:
 ```
-git clone https://github.com/yourusername/reflex-caddy-docker.git
+git clone https://github.com/gwangjinkim/reflex-caddy-docker.git
 cd reflex-caddy-docker
 ```
 2. Edit your `Caddyfile` and `rxconfig.py`:
